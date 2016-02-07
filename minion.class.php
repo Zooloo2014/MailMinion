@@ -88,10 +88,10 @@ class MailMinion
 
 
         if ($parms['ssl'] == TRUE)
-	    $this->access .= "ssl/";
+	    $this->access .= "ssl";
 
         if ($parms['validate'] != TRUE)
-            $this->access .= "novalidate-cert";
+            $this->access .= "/novalidate-cert";
 
 
         $this->access .= "}INBOX";
