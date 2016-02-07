@@ -10,7 +10,7 @@ This class allows you to:
 The mailbox is automatically opened, processed in first-to-last order and automatically closed after reaching the last mail in the list.
 
 
-`
+```
 <?php
 require_once("minion.class.php");
 $parms = array(
@@ -41,4 +41,4 @@ else
 }
 
 ?>
-`
+```
