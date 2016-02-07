@@ -6,30 +6,38 @@ require_once("minion.class.php");
 
 $parms = array(
      "host"      => "localhost", 
-	 "port"      => 143, 
-	 "user"      => "username",
-	 "pass"      => "password",
-	 "mailType"  => MailType::IMAP,
-	 "ssl"       => FALSE,
-	 "validate"  => FALSE
-	 );
+     "port"      => 993, 
+     "user"      => "username",
+     "pass"      => "password",
+     "mailType"  => MailType::IMAP,
+     "ssl"       => TRUE,
+     "validate"  => FALSE
+);
 		 
 
 $mm = new MailMinion($parms);
-$mm->getFirst(SelectType::ALL);
-if (!$mm->atEnd())
+$mm->getFirst(SelectType::UNSEEN);
+if ($mm->getError() == MinionError::NO_ERROR)
 {
-    echo "Message Count: " . $mm->getMailCount() . "<br>\r";
-
-    while (!$mm->atEnd())
+    if (!$mm->atEnd())
     {
-        $mm->dump();
-        $mm->getNext();
+        echo "Message Count: " . $mm->getMailCount() . "<br>\r";
+
+        while (!$mm->atEnd())
+        {
+            $mm->dump();
+            $mm->getNext();
+        }
+    }
+    else
+    {
+        echo "No mails to process<br>\r";
     }
 }
 else
 {
-    echo "No mails to process<br>\r";
+    echo "Error opening mailbox<br>\r";
 }
+
 
 ?>
